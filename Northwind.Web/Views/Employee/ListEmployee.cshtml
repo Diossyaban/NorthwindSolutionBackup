@@ -1,0 +1,36 @@
+﻿@model List<Employee>
+@{
+
+}
+
+<div>
+    <h3>List Of Employee </h3>
+    @*    @foreach (var item in @Model)
+    {
+    <ul>
+    <li>
+    @item.Id @item.Name @item.BirthDate
+    </li>
+    </ul>
+    }*@
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">FullName</th>
+                <th scope="col">Birth Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.BirthDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
