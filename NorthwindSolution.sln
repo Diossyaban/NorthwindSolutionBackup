@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Services.Abstract
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Services", "Northwind.Services\Northwind.Services.csproj", "{D5A4F6FC-5E14-496C-9402-CCD193DC2C68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Test", "Northwind.Test\Northwind.Test.csproj", "{9244EADE-8BEB-40C9-B422-97E5E23D666E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Test", "Northwind.Test\Northwind.Test.csproj", "{9244EADE-8BEB-40C9-B422-97E5E23D666E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{A53F779D-C995-433C-8572-C79C98B08F40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,7 @@ Global
 		{12827F96-0DE8-4C1E-BD24-CF1CF27E3C5C} = {F17BCE44-1553-482B-8E03-857503C9C21D}
 		{D5A4F6FC-5E14-496C-9402-CCD193DC2C68} = {F17BCE44-1553-482B-8E03-857503C9C21D}
 		{9244EADE-8BEB-40C9-B422-97E5E23D666E} = {DC67F140-5BEC-4307-A17A-9960F58629DB}
+		{A53F779D-C995-433C-8572-C79C98B08F40} = {5F2A3C72-FBC5-4C49-BB20-EAE4A5D5B6CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD378B05-9EE6-4EA2-915F-E2EC3DAA649E}

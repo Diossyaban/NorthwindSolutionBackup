@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Northwind.Domain.Models.User> SignInManager
+@inject UserManager<Northwind.Domain.Models.User> UserManager
+<!DOCTYPE html>
 
 <!-- =========================================================
 * Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
@@ -27,35 +30,7 @@
 
     <meta name="description" content="" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="~/lib/sneat-1.0.0/assets/img/favicon/favicon.ico" />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-          rel="stylesheet" />
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="~/lib/sneat-1.0.0/assets/vendor/fonts/boxicons.css" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="~/lib/sneat-1.0.0/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="~/lib/sneat-1.0.0/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="~/lib/sneat-1.0.0/assets/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="~/lib/sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
-    <link rel="stylesheet" href="~/lib/sneat-1.0.0/assets/vendor/libs/apex-charts/apex-charts.css" />
-
-    <!-- Page CSS -->
-    <!-- Helpers -->
-    <script src="~/lib/sneat-1.0.0/assets/vendor/js/helpers.js"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="~/lib/sneat-1.0.0/assets/js/config.js"></script>
+  <partial name="_HeadPartial"/>
 </head>
 
 <body>
@@ -219,7 +194,12 @@
                             <!-- Place this tag where you want the button to render. -->
                             <li class="nav-item lh-1 me-3">
                                 <a asp-controller="OrderDetails" asp-action="CartItem">
-                                    <i class='bx bxs-basket'>Cart</i>
+                                    <button type="button" class="btn btn-buy-now">
+                                         <i class="fas fa-shopping-cart"></i>
+                                        <box-icon name='cart-add'> Cart Item</box-icon>
+                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAASdJREFUSEvN1MExBUEUBdDzI0AGRIAIlAjIAFsWiIAMsGDLjwAZyAARkAEZUE/1VI2enpku31fecub1ve/e268n5lyTOeP7U4KPpOYdNzj+DXVtBQ1Bg7uJh1lJShYd4Qz32O4haIYZtbjUsIi3BLyC1wLJTASBFxns4AKhKK+ZCdbwiAh8KaHnGeWkRbuGPHzCKvaSohqCjvIhgl1cI4jWs3H7LArFC6k/zo0uWudAZld7wGagZ4TFXzV2zc5xiCkCoKmSgtiZjZalVQTLeEmoEXYoKlVv35iCALvDVno6QlGpTnFSUDpqUYDFNt/2AOefO89LjYIAaa7sEM+3cGtDrhy8v61WwSX2cYWDDG7oX1UGgdfe4nyooX/VBHNX8OMsajP4vwSfTQ87GZT0DnkAAAAASUVORK5CYII=" />
+                                    </button>
+
                                 </a>
                             </li>
 
@@ -250,10 +230,13 @@
                                                         <img src="~/css/6.jpeg" alt class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
+                                                @if(SignInManager.IsSignedIn(User))
+                                                {
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">Diossyaban</span>
-                                                    <small class="text-muted">Admin</small>
+                                                    <span class="fw-semibold d-block">Hi,@User.Identity.Name</span>
+                                                    <small class="text-muted">@User.Claims.FirstOrDefault(c=>c.Type.Contains("role",StringComparison.OrdinalIgnoreCase))?.Value</small>
                                                 </div>
+                                                }
                                             </div>
                                         </a>
                                     </li>
@@ -285,10 +268,12 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="auth-login-basic.html">
-                                            <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Log Out</span>
-                                        </a>
+                                        @if(SignInManager.IsSignedIn(User)){
+                                            <from class=" form-inline" asp-controller="Account" asp-action="Logout">
+                                                <buttom type="submit" class="nav-link btn btn-link text-info"> Logout</buttom>
+                                            </from>
+                                             
+                                        }
                                     </li>
                                 </ul>
                             </li>

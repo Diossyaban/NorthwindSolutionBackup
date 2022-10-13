@@ -72,9 +72,19 @@
                         <h5>@Html.DisplayFor(model => model.UnitsInStock)</h5>
                         @Html.TextBox("QuantityPerUnit",1,new{@type="number", @id="quantity"})
                         <br> <br> 
-                        <button type="submit" class="btn btn-primary" >Add Cart</button>
-                        <input type="submit" class="btn btn-primary" value="Buy Now" formaction="@Url.Action("CreateOrderBuyNow")" formmethod="post">
+                        <button type="submit" class="btn btn-primary" >
+                            <box-icon type='solid' name='cart-add'> Add To Cart</box-icon>
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAgdJREFUWEftlzsvREEYhp/1B1waOhKFQoFSxQ+QIJGIKNCKglKFX4BConJpNBoKNTodEhGFBIkIGvwC8srMZs7ZOXvmnL1ki51kk82c7/Kc7/vmnd0CDbIKDcJBEyTeCbcig8CmY/AMXACH9WifCzIKnHuSLgAHtYYJAfkG2usJEs91AoybzZpXpdypcVt1AwzVsippx1cD220ABCKgmqw0kOXYSaomRKTKaSBtgKrSWk0CJ1YxfxqIfHR05wJAXgy0TKVJafC3xu4/dAiIgl4HgGwA68ZOQjiS4rMCbFmbEBDZhgTOCiJtkkYFV0SG88C+5w0vDaSFFbC17zHf1zx+p8CEux9aEfmIPt53twpJnfj1PJgEJJjFlQVE/Y+/XR6QH0CnMbKygKjUTzF/tcK2w22TWmmF0A6wdd0GpE+5QeTo3j/xWKHD6lXoLBVR4qSfCnoWAhLRjrwzYv3c+8eNpX19tKQ9JXMARLSjUpBK7p+IdlQKojfVgA4kndeEfe+QWtusM5Ixd7h5XpAucxFKE3bLpOsFpoF3YK8cVl6QB6DPBD4CZj1JOoB7oNM82wGWkmDygOhWtSKmuJLwFk+CKeDY2f90oErM84CoLW/OT4grYNgD0g/cOftnwFg1K6JYCrgIfJn75zEhwQygfwCvwCrwUW2Q8OMQaJmnNYGhs5k1QeL1+gMxwVYjk9JcAwAAAABJRU5ErkJggg==" />
 
+                        </button>
+
+                        <button type="submit" class="btn btn-primary" value="Buy Now" formaction="@Url.Action("CreateOrderBuyNow")" formmethod="post">
+                            <box-icon name='dollar'> Buy Now</box-icon>
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAfNJREFUWEfdl48tREEQxr+rgA5QATqgAypAB1SACugAHegAFaADOqAD+SU7ybjYndl9d3G5SS735723+9tvZr7dm2lFYrYiHJoKsi1pqyzmU9LH6MKmglxJuiyTX0vi+1CsDci9pJMiAZ/PhuSQhmrktEx+UJn0WRJQDz1QPanZk3QnifdMvBWFeA8jC8LkT5I23Yjfkr7muobrG+4erh9KCmGyILSltem7pNsi/19dQ+r43e4HYj+SJANCLaAGgVegDislau2LMgAYDCBNVTIgfrKLooYtsOUjXR6zTJAoG7+uZ0B8aqgVZI5S0wXBzRkQ7vPFSq5JEX7RJX+LLgtCgTKxb03gUMZ8BRNjvxna+LIgLIYJH10n1BaIYuaslsIwVT0gDEZbHkk6l7QbjI4yx1Hb2hi9IH5uziLUiG16GB3hAVEEGNLajCkgNUOjy3BeA0KZnf8AsRR6Z2W/aaqyDEVs8dTRTfkSnt4yIKM23uUxGRDa9rWsLOusdBfPUNDEQjY9BiLfvvhYLSew2jGAA7VB0E3hYSqjiJnZvLPSmrxsQtRCifnDE120sIORweCYkZFZsaIEh6QQomfT8zbA4C1nfSkWD3Q6sqmpDej/TlAzQA7FVJCuFm0Rrg0IHeO7ZugsMlqsQzUQPTQ1NdH46es/uhR6I1cWcXcAAAAASUVORK5CYII=" />
+                        </button> 
+                       <br> <br>
+                        <box-icon type='solid' name='package'> Free Shipping </box-icon>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAlBJREFUWEfNl40xBEEQRr+LgAzIABEgAjJABIgAESACRIAIEAEyIAMyUO9q+qqrb2Z39ufOddXVqdU7/abn656+iVbEJivCoTFA1tNmfoZsaggIAKeSziTx96WkW0m9gPqCHEu6TgA+EUAYUKcEdQXZk3QnabMlypekc0lPtTS1IABcSOLb21s6GjJxL2k3/P9V0pUkvhutDYSdA8BRRDtJwf1zQG8kbQVnIAEiU1krgZgQOe8mIygBokAB592N8HJR0DkQqoAsWFmy1m/aqYlxzQUoCZT3WYtPq38E+cik9cHpgPhWqpSuN9LOcUU94E/mjoI/sXbsmQfhfF8yZ8viOUM/JYHyjtcDMJR71Nq+gbeBAMCCnC2ZyRkbACjqwfRzmI46V/KdQCx4WymiBYC9HnLg6M18eoHYojQpmlWuFDkCsnOQIaDnAMrH+s0gEIsRS7ekA/y5g8gYRmZHBWFRK10rVV/yPin0GutJCwEp6HeaAQI+JoelgzynI0A/vh0sFcTrgET8G4jftYFQQWiDb98GRhdrSZA8R7i5aa1VrNuS3kvqq3geMxJfobMyVPmZhruGO2dueM5dehUMU5cSSKm/fEpi81MrjQE1rToCRpA4XJs/LZ71aYgzaxqMbC7pkxFuWWaaeNEBC8CcdmpGRejjLJGDs9mU636W8uTIzc06nUfFGAiB+csqB8IuY4u3i27w8BwDMluQ2jh7RL/v1GFH/zkRA5Vmj6wQa0TWppGmNezGRZRWvlkhLhrE1v/3H+E1G632GXI01UFqHP8AE4yXI3jkKlEAAAAASUVORK5CYII=" />
 
                     </div>
                 </div>

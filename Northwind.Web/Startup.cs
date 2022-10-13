@@ -2,17 +2,20 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Northwind.Domain.Base;
+using Northwind.Domain.Models;
 using Northwind.Persistence;
 using Northwind.Persistence.Base;
 using Northwind.Services;
 using Northwind.Services.Abstraction;
 using Northwind.Web.Extensions;
+using Northwind.Web.Factory;
 using Northwind.Web.Models;
 using Northwind.Web.Repository;
 using System;
@@ -35,6 +38,7 @@ namespace Northwind.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUserClaimsPrincipalFactory<User>,CustomClaimsFactory>();
             services.AddControllersWithViews();
             //call interface & implementation
             services.AddScoped<IEmployee, EmployeeRepository>();
@@ -45,8 +49,8 @@ namespace Northwind.Web
 
             //add connfigureIdentity here from service Extensions
             services.ConfigureIdentity();
-            services.ConfigureApplicationCookie(o => o.LoginPath = "/Authentication/Login");
-            // register dbcontext
+/*            services.ConfigureApplicationCookie(o => o.LoginPath = "/Authentication/Login");
+*/            // register dbcontext
             services.AddDbContext<NorthwindContext>(opts =>
             {
                 opts.UseSqlServer(Configuration["ConnectionStrings:NorthwindDb"]);
