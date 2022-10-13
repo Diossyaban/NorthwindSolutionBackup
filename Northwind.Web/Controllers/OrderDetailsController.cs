@@ -33,7 +33,7 @@ namespace Northwind.Web.Controllers
 
         public async Task<IActionResult> CartItem()
         {
-            var customerId = "FAJAR";
+            var customerId = "dios";
             var itemCart = await _context.OrderDetailService.GetAllCartItem(customerId, false);
             return View(itemCart);
         }
@@ -54,7 +54,7 @@ namespace Northwind.Web.Controllers
             OrderDto order = new OrderDto
             {
                 OrderId = orderDetail.OrderId,
-                CustomerId = "FAJAR",
+                CustomerId = "dios",
                 ShippedDate = DateTime.Now
             };
             _context.OrderService.Edit(order);

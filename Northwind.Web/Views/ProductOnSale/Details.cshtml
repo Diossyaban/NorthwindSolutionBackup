@@ -71,14 +71,17 @@
                         <h5>@Html.DisplayFor(model => model.Category.CategoryName)</h5>
                         <h5>@Html.DisplayFor(model => model.UnitsInStock)</h5>
                         @Html.TextBox("QuantityPerUnit",1,new{@type="number", @id="quantity"})
+                        <br> <br> 
+                        <button type="submit" class="btn btn-primary" >Add Cart</button>
+                        <input type="submit" class="btn btn-primary" value="Buy Now" formaction="@Url.Action("CreateOrderBuyNow")" formmethod="post">
+
+
                     </div>
                 </div>
                 @*<a asp-action="CreateOrderBuyNow">
                     <input type="button" class="btn btn-secondary" value="Buy Now">
                 </a>*@
-            <input type="submit" class="btn btn-secondary" value="Buy Now" formaction="@Url.Action("CreateOrderBuyNow")" formmethod="post">
                 @*<input type="submit" class="btn btn-primary" value="Add Cart" formaction="CreateOrderAddCart">*@
-                <button type="submit" class="btn btn-primary" style="margin-left:1200px">Add Cart</button>
             </div>
         </div>
     </body>

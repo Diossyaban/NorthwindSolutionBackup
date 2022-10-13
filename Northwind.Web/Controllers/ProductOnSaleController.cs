@@ -37,7 +37,7 @@ namespace Northwind.Web.Controllers
                 {
                     OrderDate = DateTime.Now,
                     RequiredDate = DateTime.Now.AddDays(3),
-                    CustomerId = "FAJAR"
+                    CustomerId = "dios"
                 };
                 var orders = await _context.OrderService.FilterCustId(order.CustomerId, false);
                 if (orders == null)
@@ -123,20 +123,23 @@ namespace Northwind.Web.Controllers
                 // create order dan order detail baru, jika customer belum melakukan order
                 var products = productDto;
                 var order = new OrderForCreateDto
-                {
+                { 
                     OrderDate = DateTime.Now,
                     RequiredDate = DateTime.Now.AddDays(3),
-                    CustomerId = "FAJAR"
+                    CustomerId = "dios"
                 };
+                var orderId = _context.OrderService.CreateOrderId(order);
                 var orderDetail = new OrderDetailForCreateDto
                 {
                     ProductId = products.ProductId,
                     UnitPrice = (decimal)products.UnitPrice,
                     Quantity = Convert.ToInt16(products.QuantityPerUnit),
-                    Discount = 0
+                    Discount = 0,
+                    OrderId = orderId.OrderId
                 };
-                _context.ProductService.CreateOrder(order, orderDetail);
-                return RedirectToAction("Checkout", new { id = orderDetail.OrderId });
+                _context.OrderDetailService.Insert(orderDetail);
+/*                _context.ProductService.CreateOrder(order, orderDetail);
+*/                return RedirectToAction("Checkout", new { id = orderDetail.OrderId });
             }
             return View();
         }
