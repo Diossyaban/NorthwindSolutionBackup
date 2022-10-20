@@ -1,0 +1,83 @@
+﻿<h3>JavaScript</h3>
+
+<h4  id="Today"> </h4>
+
+<input id="FirstName" placeholder="Firstname"/>
+<button id="btnFirstname" class="btn-warning">Click FirstName</button>
+<p></p>
+<input id="LastName" placeholder="LastName" />
+<button  class="btn-success">Click FirstName</button>
+<p></p>
+<p></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>QTY</th>
+            <th>SubTotalPrice</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <input id="Product" value="bike" />
+            </td>
+            <td>
+                <input id="Price" value="15" />
+            </td>
+            <td>
+                <input id="QTY" value="1" readonly />
+            </td>
+            <td>
+                <input id="SubTotalPrice" value="15" readonly/>
+            </td>
+            <td>
+                <button id="btnAdd">Add Item</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@section scripts{
+    <script type="text/javascript">
+        let Today = new Date();
+
+
+        //search element by id
+        var elH2 = document.getElementById("Today");
+        elH2.textContent=Today;
+
+        var elFirstName = document.getElementById("FirstName");
+        elFirstName.value  = "Diossyaban";
+
+        document.getElementById("btnFirstname").addEventListener('click', () => {
+            elFirstName.value = "Bootcamp Code.ID";
+        })
+
+        var elLastName = document.getElementById("LastName");
+        elLastName.value = "Syaban";
+
+        //anonymous Function
+        document.querySelector('.btn-success').onclick = function (e) {
+            elLastName.value = "Sentul";
+        }
+
+        document.getElementById('btnAdd').addEventListener('click', () => {
+            //alert('test');
+            let price = document.getElementById('Price');
+            let qty = document.getElementById('QTY');
+            let subTotalPrice = document.getElementById('SubTotalPrice');
+
+            let counter = parseInt(qty.value);
+            counter++;
+
+            qty.value = counter;
+            subTotalPrice.value = parseFloat(price.value ) * qty.value ;
+            
+        })
+
+
+        </script>
+}

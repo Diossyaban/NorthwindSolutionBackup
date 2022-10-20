@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Northwind.Domain.Configurations;
+using Northwind.Domain.Dto;
 using Northwind.Domain.Models;
 
 #nullable disable
@@ -51,6 +52,7 @@ namespace Northwind.Persistence
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Territory> Territories { get; set; }
         public virtual DbSet<ProductPhoto> ProductPhotos { get; set; }
+        public virtual DbSet<TotalProductByCategory> TotalProductByCategorySQL { get; set; }
 
         /*        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
                 {
@@ -70,7 +72,11 @@ namespace Northwind.Persistence
             //APPLYROLE CONFIGURATION
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
+            modelBuilder.Entity<TotalProductByCategory>(entity=>
+            {
+                entity.HasNoKey();
+                entity.ToView("TotalProductByCategorySQL");
+            });
             modelBuilder.Entity<AlphabeticalListOfProduct>(entity =>
             {
                 entity.HasNoKey();

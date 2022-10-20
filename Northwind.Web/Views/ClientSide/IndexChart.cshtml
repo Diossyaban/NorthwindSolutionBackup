@@ -1,0 +1,93 @@
+﻿<h3> 
+    <box-icon name='line-chart-down'></box-icon>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAAAXNSR0IArs4c6QAAAtxJREFUeF7t2kmLFDEYxvH/uOE3mrsgiOIy7gsKggh60que9ao38aLghituuOHFox/JXXkhGZq2U3mrUqmunn7qModJUnl/9SSV7pkVdDUKrMinWUBAmYQISEBlm4gSpAQpQWUCSlCZn3cP+pu4jbd/2Szn2NtboIAyD0lAApotoCXW01tMS0xLTEus02FBe5D2oE7BWe+kBClBSlCZgBJU5qc9SAlajARdAFaBs0DqY0tZJZV6D7HErgDXwvwfAycXCak20A3g0tTDXSikmkC3gfOJ5D8ATldaFb0OWwvIxr0PnGqY7UvgCPC7Y0VbgXeh/37gR8dxGrvVArKbbgLuVUKKODtDdR+BKkg1gWohTePEBFRBqg3UBuko8CuzTFI4k0h7HeO4V+MQQBHpCXC4YWa2nxxoKC6HE4d+AxzqC2koIJv8ZsBe8V2QvDi9Iw0J1AZpDfgZqm2L0yvS0EBepM/AnlCpLb34tnLvHaGhLbeDBUcJ5gEUi3we9opU0e/DL3Y3qHwKxTe1eQocaysb288TaAvwAtjXcfJfgF3An3BgbEqZPYzjXZI0TyBz6YoUcb632Kc6Ic0bKCK9DWnwhGkaJ/axzdw+vsS9a9ZYhmTLzVLnusYAZBPdBrx2IKVwYrGWyFcZpIfAGS/SWIA8SDmcKkhjAmpC8uJMItnby85TqcuVpLEBRaQPwI5QWVucCGIn92cOJPteKvk18BiBrMDt4dVtX5nYqzy+rVwb60QjD9Id4FwKaaxAEcl+fmurMqP9I+BEYpxbwMXUPcYM1IPL+hBWpyHZYXHyug5cbbrRsgCZwTTSZeBm7iksE1C0uAt8BeyPCtlrGYGyKJMNBJThEpCAWq2o/xorQUqQElQmUDlBVSc3wODZLSbbIExyof7pqQVstv5sAwH5uJWgjJOABDRbwLsH+RbiBmwloJ7OQRswG76SlCAlyJeUVCslSAlSgsoElKAyv3+XB6xJhRrFsAAAAABJRU5ErkJggg==" />
+    APEX Chart
+</h3>
+
+<div id="chart"></div>
+<div id="piechart"></div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+           // renderChart();
+           let totalProduct =[];
+           let categories =[];
+           $.ajax({
+               type :'Get',
+                url: '/ClientSide/GetTotalProductByCategory',
+                success :function (result){
+                    console.log(result);
+                    for (let i=0; i < result.length; i++){
+                        totalProduct.push(result[i].totalProduct);
+                        categories.push(result[i].categoryName);
+                    }
+                    console.log(totalProduct);
+                    console.log(categories);
+                    renderBarChart(totalProduct,categories);
+                    renderPieChart(totalProduct,categories);
+                },
+                error :function (result) {
+                    console.log('Anda Belum Beruntung');
+                }
+           });
+        });
+
+        function renderBarChart(dataSeries, dataCategories){
+            var options = {
+                series: [{
+                    data: dataSeries
+                    //[400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        horizontal: true,
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: dataCategories
+                   // ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan',
+                       // 'United States', 'China', 'Germany'],
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        }
+
+        function renderPieChart(dataSeries, dataCategories) {
+            var options = {
+                series:  dataSeries,
+                chart: {
+                    width: 480,
+                    type: 'pie',
+                },
+                labels: dataCategories,
+                responsive: [{
+                    breakpoint: 580,
+                    options: {
+                        chart: {
+                            width: 300
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#piechart"), options);
+            chart.render();
+        }
+      
+    </script>
+}

@@ -1,0 +1,110 @@
+﻿<h3>JQuery</h3>
+
+<h4 id="Today"> </h4>
+
+<input id="FirstName" placeholder="Firstname" />
+<button id="btnFirstname" class="btn-info">Click FirstName</button>
+<p></p>
+<input id="LastName" placeholder="LastName" />
+<button class="btn-secondary">Click LastName</button>
+<p></p>
+<p></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>QTY</th>
+            <th>SubTotalPrice</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <input id="Product" value="bike" />
+            </td>
+            <td>
+                <input id="Price" value="15" />
+            </td>
+            <td>
+                <input id="QTY" value="1" readonly />
+            </td>
+            <td>
+                <input id="SubTotalPrice" value="15" readonly />
+            </td>
+            <td>
+                <button id="btnAdd">Add Item</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p></p>
+
+<form id="FormSubmit">
+    <input id="CategoryName" placeholder="Category Name" />
+    <input id="Description" placeholder="Description" />
+    <button type="submit">Save Me</button>
+</form>
+
+
+
+@section scripts{
+    <script type="text/javascript">
+        let Today = new Date();
+        $(document).ready(function () {
+            console.log("Document Ready");
+            $("#Today").text(Today);
+        });
+
+        $("#btnFirstname").on('click', () => {
+            $("#FirstName").val("Hello Bootcamp");
+        });
+
+        $(".btn-secondary").on('click', () => {
+            $("#LastName").val("JQuery");
+        });
+
+        $('#btnAdd').on('click', () => {
+            let price = $('#Price').val();
+            let qty = $('#QTY').val();
+
+            let counter = qty;
+            counter++;
+            $('#QTY').val(counter);
+
+            $('#SubTotalPrice').val(parseFloat(price) * parseInt(qty));
+        })
+
+        $('#FormSubmit').submit((e) => {
+            //mencegah spy page tidak langsung submit ke server
+            e.preventDefault();
+
+            //buat object categoryForCreateto dan pastikan = parameter yang ada di controller
+            let categoryForCreateDto = {
+                CategoryName: $("#CategoryName").val(),
+                Description: $("#Description").val()
+            }
+
+            //send object via ajax amsterdam
+            $.ajax({
+                type: "POST",
+                url: '/ClientSide/PostCategory',
+                data: JSON.stringify(categoryForCreateDto),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    console.log(result);
+                    alert("Oke Data Anda Diterima");
+                },
+                Error: function (result) {
+                    console.log(result);
+                    alert("Kami Tak menerima apapun");
+                }
+            });
+
+        });
+
+    </script>
+}
